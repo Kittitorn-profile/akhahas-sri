@@ -1,17 +1,35 @@
 'use client';
 
+import { useState } from 'react';
+import Fade from 'embla-carousel-fade';
+import ReactPlayer from 'react-player';
+import Autoplay from 'embla-carousel-autoplay';
+
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
+import Dialog from '@mui/material/Dialog';
 import { useTheme } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import DialogContent from '@mui/material/DialogContent';
 
 import { CONFIG } from 'src/global-config';
 
 import { Image } from 'src/components/image';
+import { Iconify } from 'src/components/iconify';
+import { Carousel, useCarousel } from 'src/components/carousel';
 
 // ----------------------------------------------------------------------
 
-const HERO_IMAGE = '/assets/akhahas-sri/hero-3.png';
+const HERO_IMAGE = [
+  '/assets/background/akhahas-sri-1.jpg',
+  '/assets/background/akhahas-sri-2.jpg',
+  '/assets/background/akhahas-sri-3.jpg',
+  '/assets/background/akhahas-sri-4.jpg',
+  '/assets/background/akhahas-sri-5.jpg',
+  '/assets/background/akhahas-sri-6.jpg',
+  '/assets/background/akhahas-sri-7.jpg',
+].slice(0, 7);
 const SCENES_IMAGE = '/assets/akhahas-sri/hero-2.jpg';
 const MEMORIAL_IMAGE = '/assets/akhahas-sri/rip-1.jpeg';
 
@@ -40,13 +58,27 @@ const tours = [
   { title: 'Tour 4', subtitle: 'Jungle river routes', position: '100% 100%' },
 ];
 
-const videos = [
-  { position: '100% 0%', sx: { gridColumn: '4 / span 2', gridRow: '1 / span 2' } },
-  { position: '0% 100%', sx: { gridColumn: '3 / span 2', gridRow: '3 / span 2' } },
-  { position: '100% 100%', sx: { gridColumn: '5 / span 2', gridRow: '3 / span 2' } },
-  { position: '0% 0%', sx: { gridColumn: '1 / span 2', gridRow: '5 / span 2' } },
-  { position: '100% 0%', sx: { gridColumn: '3 / span 2', gridRow: '5 / span 2' } },
-  { position: '0% 100%', sx: { gridColumn: '5 / span 3', gridRow: '5 / span 2' } },
+const VIDEO_ITEMS = [
+  {
+    title: 'เทิดพระเกียรติ | วงโปงลางอรรคฮาตสี การประกวดวงโปงลางกรมพลศึกษา 65',
+    src: 'https://www.youtube.com/watch?v=hZB0LIYLSgM&list=RDhZB0LIYLSgM&start_radio=1',
+    cover: 'https://img.youtube.com/vi/hZB0LIYLSgM/maxresdefault.jpg',
+  },
+  {
+    title: 'วงโปงลางอรรคฮาตสี | การประกวดวงโปงลางกรมพลศึกษา 66',
+    src: 'https://www.youtube.com/watch?v=S1twzNXRbCY&list=RDS1twzNXRbCY&start_radio=1&t=1076s',
+    cover: 'https://img.youtube.com/vi/S1twzNXRbCY/maxresdefault.jpg',
+  },
+  {
+    title: 'เทิดพระเกียรติ - วงโปงลางอรรคฮาตสี | การประกวดวงโปงลางกรมพลศึกษา 67',
+    src: 'https://www.youtube.com/watch?v=gxiq1n3JOT8&list=RDgxiq1n3JOT8&start_radio=1',
+    cover: 'https://img.youtube.com/vi/gxiq1n3JOT8/maxresdefault.jpg',
+  },
+  {
+    title: 'อรรคฮาตสีลาแฟน | วงโปงลางอรรคฮาตสี [Official MV]',
+    src: 'https://www.youtube.com/watch?v=Zr1H0ultIQ8',
+    cover: 'https://img.youtube.com/vi/Zr1H0ultIQ8/maxresdefault.jpg',
+  },
 ];
 
 function PlayButton({ small = false }: { small?: boolean }) {
@@ -80,6 +112,18 @@ function PlayButton({ small = false }: { small?: boolean }) {
 
 export function HomeView() {
   const theme = useTheme();
+  const [videoPreviewKey, setVideoPreviewKey] = useState(0);
+  const [selectedVideo, setSelectedVideo] = useState<(typeof VIDEO_ITEMS)[number] | null>(null);
+  const heroCarousel = useCarousel({ loop: true, duration: 80 }, [
+    Fade(),
+    Autoplay({ playOnInit: true, delay: 5000 }),
+  ]);
+
+  const handleCloseVideo = () => {
+    setSelectedVideo(null);
+    setVideoPreviewKey((prev) => prev + 1);
+  };
+
   return (
     <Box
       component="main"
@@ -98,17 +142,51 @@ export function HomeView() {
           px: { xs: 2.5, md: 8, lg: 13 },
           pt: { xs: 14, md: 19 },
           pb: { xs: 7, md: 6 },
-          backgroundImage: `
-            linear-gradient(180deg, rgba(9,47,33,0.18) 0%, rgba(9,47,33,0.58) 56%, ${theme.palette.secondary.main} 100%),
-            linear-gradient(90deg, rgba(5,37,24,0.94) 0%, rgba(18,61,43,0.58) 48%, rgba(5,37,24,0.84) 100%),
-            linear-gradient(0deg, rgba(217,181,109,0.08), rgba(217,181,109,0.08)),
-            url(${HERO_IMAGE})
-          `,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center top',
+          bgcolor: '#052518',
         }}
       >
-        <Box sx={{ mx: 'auto', maxWidth: 1280, position: 'relative' }}>
+        <Carousel
+          carousel={heroCarousel}
+          sx={{
+            m: 0,
+            inset: 0,
+            width: 1,
+            height: 1,
+            zIndex: 0,
+            position: 'absolute',
+          }}
+          slotProps={{
+            container: { height: 1 },
+            slide: { height: 1 },
+          }}
+        >
+          {HERO_IMAGE.map((src, index) => (
+            <Image
+              key={src}
+              alt={`Akhahas'sri hero ${index + 1}`}
+              src={src}
+              visibleByDefault
+              disablePlaceholder
+              sx={{ width: 1, height: 1 }}
+            />
+          ))}
+        </Carousel>
+
+        <Box
+          sx={{
+            inset: 0,
+            zIndex: 1,
+            position: 'absolute',
+            pointerEvents: 'none',
+            backgroundImage: `
+              linear-gradient(180deg, rgba(9,47,33,0.18) 0%, rgba(9,47,33,0.58) 56%, ${theme.palette.secondary.main} 100%),
+              linear-gradient(90deg, rgba(5,37,24,0.94) 0%, rgba(18,61,43,0.58) 48%, rgba(5,37,24,0.84) 100%),
+              linear-gradient(0deg, rgba(217,181,109,0.08), rgba(217,181,109,0.08))
+            `,
+          }}
+        />
+
+        <Box sx={{ mx: 'auto', maxWidth: 1280, position: 'relative', zIndex: 2 }}>
           <Box sx={{ maxWidth: 610 }}>
             <Image
               alt="Single logo"
@@ -143,22 +221,32 @@ export function HomeView() {
               alignItems: 'flex-end',
             }}
           >
-            {['01', '02', '03', '04', '05'].map((item, index) => (
+            {HERO_IMAGE.map((_, index) => (
               <Stack
-                key={item}
+                key={index}
                 direction="row"
                 spacing={1.3}
                 alignItems="center"
                 sx={{
-                  color: index === 2 ? theme.palette.secondary.main : 'rgba(246,237,219,0.48)',
+                  color:
+                    index === heroCarousel.dots.selectedIndex
+                      ? theme.palette.secondary.main
+                      : 'rgba(246,237,219,0.48)',
+                  cursor: 'pointer',
                 }}
+                onClick={() => heroCarousel.dots.onClickDot(index)}
               >
-                <Typography sx={{ fontSize: 12, fontWeight: 800 }}>{item}</Typography>
+                <Typography sx={{ fontSize: 12, fontWeight: 800 }}>
+                  {String(index + 1).padStart(2, '0')}
+                </Typography>
                 <Box
                   sx={{
                     height: 2,
-                    width: index === 2 ? 78 : 18,
-                    bgcolor: index === 2 ? theme.palette.secondary.main : 'rgba(234,215,161,0.28)',
+                    width: index === heroCarousel.dots.selectedIndex ? 78 : 18,
+                    bgcolor:
+                      index === heroCarousel.dots.selectedIndex
+                        ? theme.palette.secondary.main
+                        : 'rgba(234,215,161,0.28)',
                   }}
                 />
               </Stack>
@@ -320,7 +408,7 @@ export function HomeView() {
         sx={{
           px: { xs: 2.5, md: 8, lg: 13 },
           py: { xs: 8, md: 12 },
-          minHeight: { md: 660 },
+          minHeight: 800,
           backgroundImage: `
             linear-gradient(180deg, ${theme.palette.primary.main} 0%, rgba(9,47,33,0.64) 32%, ${theme.palette.primary.main} 100%),
             linear-gradient(90deg, rgba(5,37,24,0.94) 0%, rgba(18,61,43,0.48) 52%, rgba(5,37,24,0.9) 100%),
@@ -355,13 +443,13 @@ export function HomeView() {
             >
               ศิลปะ ส่องทาง ให้แก่กัน เสมอ
             </Typography>
-            {/* 
+
             <Stack direction="row" spacing={2} alignItems="center" sx={{ mt: 4.5 }}>
-              <PlayButton />
-              <Typography sx={{ fontSize: 12, fontWeight: 800, textTransform: 'uppercase' }}>
-                Watch the video
+              <PlayButton small />
+              <Typography variant="h5" sx={{ fontWeight: 800, textTransform: 'uppercase' }}>
+                รับชมวิดีโอ
               </Typography>
-            </Stack> */}
+            </Stack>
 
             <Typography
               sx={{
@@ -381,53 +469,126 @@ export function HomeView() {
 
           <Box
             sx={{
+              gap: 2,
               display: 'grid',
-              minHeight: { xs: 420, md: 520 },
-              gridTemplateRows: 'repeat(6, 1fr)',
-              gridTemplateColumns: 'repeat(6, 1fr)',
-              gap: { xs: 1.5, md: 2 },
+              gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' },
             }}
           >
-            {videos.map((video, index) => (
+            {VIDEO_ITEMS.map((video, index) => (
               <Box
-                key={index}
+                key={`${video.title}-${index}`}
                 sx={{
-                  ...video.sx,
-                  display: 'grid',
-                  minHeight: 96,
-                  overflow: 'hidden',
-                  placeItems: 'center',
-                  backgroundImage: `
-                    linear-gradient(rgba(9,47,33,0.12), rgba(5,37,24,0.42)),
-                    linear-gradient(0deg, rgba(217,181,109,0.1), rgba(217,181,109,0.1)),
-                    url(${SCENES_IMAGE})
-                  `,
-                  backgroundSize: '230% 230%',
-                  backgroundPosition: video.position,
-                  borderRadius: '3px',
-                  boxShadow: '0 24px 60px rgba(0,0,0,0.36)',
+                  p: 1,
+                  borderRadius: 1.5,
+                  bgcolor: 'rgba(234,215,161,0.1)',
+                  border: '1px solid rgba(234,215,161,0.22)',
+                  boxShadow: '0 24px 60px rgba(0,0,0,0.22)',
                 }}
               >
-                <PlayButton small />
+                <Box
+                  sx={{
+                    width: 1,
+                    aspectRatio: '16 / 9',
+                    overflow: 'hidden',
+                    borderRadius: 1,
+                    bgcolor: '#052518',
+                    '& .react-player__preview': {
+                      borderRadius: 1,
+                    },
+                    '& .react-player__shadow': {
+                      bgcolor: 'rgba(9, 47, 33, 0.54)',
+                      boxShadow: '0 18px 40px rgba(0,0,0,0.34)',
+                    },
+                  }}
+                >
+                  <ReactPlayer
+                    key={`${video.title}-${videoPreviewKey}`}
+                    src={video.src}
+                    light={video.cover}
+                    width="100%"
+                    height="100%"
+                    playIcon={<PlayButton small />}
+                    previewAriaLabel={`ดูวิดีโอ ${video.title}`}
+                    onClickPreview={() => setSelectedVideo(video)}
+                  />
+                </Box>
+
+                <Typography
+                  sx={{
+                    mt: 1.25,
+                    px: 0.5,
+                    color: theme.palette.secondary.main,
+                    fontSize: 13,
+                    fontWeight: 800,
+                  }}
+                >
+                  {video.title}
+                </Typography>
               </Box>
             ))}
           </Box>
         </Box>
       </Box>
 
-      <Stack
+      <Dialog
+        fullWidth
+        maxWidth="lg"
+        open={!!selectedVideo}
+        onClose={handleCloseVideo}
+        slotProps={{
+          paper: {
+            sx: {
+              overflow: 'hidden',
+              bgcolor: '#052518',
+              borderRadius: 1.5,
+              border: '1px solid rgba(234,215,161,0.24)',
+            },
+          },
+        }}
+      >
+        <Box
+          sx={{
+            px: 2,
+            py: 1.25,
+            gap: 1.5,
+            display: 'flex',
+            alignItems: 'center',
+            color: theme.palette.secondary.main,
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography sx={{ fontSize: 16, fontWeight: 800 }}>{selectedVideo?.title}</Typography>
+
+          <IconButton onClick={handleCloseVideo} sx={{ color: 'inherit' }}>
+            <Iconify icon="mingcute:close-line" />
+          </IconButton>
+        </Box>
+
+        <DialogContent sx={{ p: 0, bgcolor: 'black' }}>
+          <Box sx={{ width: 1, aspectRatio: '16 / 9' }}>
+            {selectedVideo && (
+              <ReactPlayer controls playing src={selectedVideo.src} width="100%" height="100%" />
+            )}
+          </Box>
+        </DialogContent>
+      </Dialog>
+
+      {/* <Stack
         component="footer"
         direction="row"
         spacing={4}
         justifyContent="center"
         sx={{ pb: 7, color: theme.palette.secondary.main, bgcolor: theme.palette.primary.main }}
       >
-        {['◎', 'f', '✈', 't'].map((item) => (
-          <Typography key={item} sx={{ fontSize: 18, fontWeight: 800 }}>
-            {item}
-          </Typography>
+        {_socials.map((social) => (
+          <IconButton key={social.label}>
+            {social.value === 'twitter' && <Iconify icon="socials:twitter" />}
+            {social.value === 'facebook' && <Iconify icon="socials:facebook" />}
+            {social.value === 'instagram' && <Iconify icon="socials:instagram" />}
+            {social.value === 'linkedin' && <Iconify icon="socials:linkedin" />}
+          </IconButton>
         ))}
-      </Stack>
+      </Stack> */}
     </Box>
   );
 }

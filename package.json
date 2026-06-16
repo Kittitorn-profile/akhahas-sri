@@ -5,8 +5,8 @@
   "description": "Next & TypeScript",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8082",
-    "start": "next start -p 8082",
+    "dev": "next dev -p 3300",
+    "start": "next start -p 3300",
     "build": "next build",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -98,6 +98,7 @@
     "react-markdown": "^10.1.0",
     "react-organizational-chart": "^2.2.1",
     "react-phone-number-input": "^3.4.14",
+    "react-player": "^3.4.0",
     "rehype-highlight": "^7.0.2",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
