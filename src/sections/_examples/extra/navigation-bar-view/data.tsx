@@ -14,84 +14,84 @@ export const NAV_BASIC_ITEMS: NavBasicProps['data'] = [
     path: '#',
     icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-analytics.svg`} />,
   },
-  {
-    title: 'Page',
-    path: '/components',
-    caption: 'The standard Lorem Ipsum passage, used since the 1500s.',
-    icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-banking.svg`} />,
-    info: <Label color="info">+2</Label>,
-    children: [
-      {
-        title: 'What is Lorem Ipsum?',
-        path: '#',
-        icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-booking.svg`} />,
-        info: '+3',
-        children: [
-          { title: 'Page 1.1', path: '#' },
-          { title: 'Page 1.2', path: '#', disabled: true },
-        ],
-      },
-      {
-        title: 'Page 2',
-        path: '/components/extra',
-        icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-chat.svg`} />,
-        caption: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-        children: [
-          { title: 'Page 2.1', path: '#' },
-          { title: 'Page 2.2', path: '#' },
-          {
-            title: 'Page 2.3',
-            path: '/components/extra/navigation-bar',
-            children: [
-              { title: 'Page 2.3.1', path: '#' },
-              { title: 'Page 2.3.2', path: '/components/extra/navigation-bar' },
-              { title: 'Page 2.3.3', path: '#' },
-            ],
-          },
-        ],
-      },
-      {
-        title: 'Page 3',
-        path: '#',
-        icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-lock.svg`} />,
-      },
-    ],
-  },
-  {
-    title: 'Blog',
-    path: '#',
-    icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-mail.svg`} />,
-    children: [
-      {
-        title: 'Post 1',
-        path: '#',
-        icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-booking.svg`} />,
-        caption: 'This is the caption',
-        info: '+3',
-      },
-      {
-        title: 'Post 2',
-        path: '#',
-        icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-chat.svg`} />,
-      },
-      {
-        title: 'Post 3',
-        path: '#',
-        icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-lock.svg`} />,
-      },
-    ],
-  },
-  {
-    title: 'Contact',
-    path: '#',
-    icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-user.svg`} />,
-    disabled: true,
-  },
-  {
-    title: 'External',
-    path: 'https://www.google.com/',
-    icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-tour.svg`} />,
-  },
+  // {
+  //   title: 'Page',
+  //   path: '/components',
+  //   caption: 'The standard Lorem Ipsum passage, used since the 1500s.',
+  //   icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-banking.svg`} />,
+  //   info: <Label color="info">+2</Label>,
+  //   children: [
+  //     {
+  //       title: 'What is Lorem Ipsum?',
+  //       path: '#',
+  //       icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-booking.svg`} />,
+  //       info: '+3',
+  //       children: [
+  //         { title: 'Page 1.1', path: '#' },
+  //         { title: 'Page 1.2', path: '#', disabled: true },
+  //       ],
+  //     },
+  //     {
+  //       title: 'Page 2',
+  //       path: '/components/extra',
+  //       icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-chat.svg`} />,
+  //       caption: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+  //       children: [
+  //         { title: 'Page 2.1', path: '#' },
+  //         { title: 'Page 2.2', path: '#' },
+  //         {
+  //           title: 'Page 2.3',
+  //           path: '/components/extra/navigation-bar',
+  //           children: [
+  //             { title: 'Page 2.3.1', path: '#' },
+  //             { title: 'Page 2.3.2', path: '/components/extra/navigation-bar' },
+  //             { title: 'Page 2.3.3', path: '#' },
+  //           ],
+  //         },
+  //       ],
+  //     },
+  //     {
+  //       title: 'Page 3',
+  //       path: '#',
+  //       icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-lock.svg`} />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Blog',
+  //   path: '#',
+  //   icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-mail.svg`} />,
+  //   children: [
+  //     {
+  //       title: 'Post 1',
+  //       path: '#',
+  //       icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-booking.svg`} />,
+  //       caption: 'This is the caption',
+  //       info: '+3',
+  //     },
+  //     {
+  //       title: 'Post 2',
+  //       path: '#',
+  //       icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-chat.svg`} />,
+  //     },
+  //     {
+  //       title: 'Post 3',
+  //       path: '#',
+  //       icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-lock.svg`} />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Contact',
+  //   path: '#',
+  //   icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-user.svg`} />,
+  //   disabled: true,
+  // },
+  // {
+  //   title: 'External',
+  //   path: 'https://www.google.com/',
+  //   icon: <SvgColor src={`${CONFIG.assetsDir}/assets/icons/navbar/ic-tour.svg`} />,
+  // },
 ];
 
 // ----------------------------------------------------------------------

@@ -9,9 +9,7 @@ import { useBoolean } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
 
-import { paths } from 'src/routes/paths';
 import { usePathname } from 'src/routes/hooks';
 
 import { Logo } from 'src/components/logo';
@@ -21,8 +19,6 @@ import { NavDesktop } from './nav/desktop';
 import { Footer, HomeFooter } from './footer';
 import { MenuButton } from '../components/menu-button';
 import { navData as mainNavData } from '../nav-config-main';
-import { SignInButton } from '../components/sign-in-button';
-import { SettingsButton } from '../components/settings-button';
 import { MainSection, LayoutSection, HeaderSection } from '../core';
 
 // ----------------------------------------------------------------------
@@ -93,13 +89,13 @@ export function MainLayout({
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, sm: 1.5 } }}>
             {/** @slot Settings button */}
-            <SettingsButton />
+            {/* <SettingsButton /> */}
 
             {/** @slot Sign in button */}
-            <SignInButton />
+            {/* <SignInButton /> */}
 
             {/** @slot Purchase button */}
-            <Button
+            {/* <Button
               variant="contained"
               rel="noopener noreferrer"
               target="_blank"
@@ -110,7 +106,7 @@ export function MainLayout({
               })}
             >
               Purchase
-            </Button>
+            </Button> */}
           </Box>
         </>
       ),

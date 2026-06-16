@@ -4,10 +4,10 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
-import { styled } from '@mui/material/styles';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import { styled, useTheme } from '@mui/material/styles';
 
 import { paths } from 'src/routes/paths';
 import { RouterLink } from 'src/routes/components';
@@ -42,7 +42,7 @@ const LINKS = [
 
 const FooterRoot = styled('footer')(({ theme }) => ({
   position: 'relative',
-  backgroundColor: theme.vars.palette.background.default,
+  backgroundColor: theme.vars.palette.primary.main,
 }));
 
 export type FooterProps = React.ComponentProps<typeof FooterRoot>;
@@ -162,6 +162,7 @@ export function Footer({
 // ----------------------------------------------------------------------
 
 export function HomeFooter({ sx, ...other }: FooterProps) {
+  const theme = useTheme();
   return (
     <FooterRoot
       sx={[
@@ -175,10 +176,8 @@ export function HomeFooter({ sx, ...other }: FooterProps) {
     >
       <Container>
         <Logo />
-        <Box sx={{ mt: 1, typography: 'caption' }}>
-          © All rights reserved.
-          <br /> made by
-          <Link href="https://minimals.cc/"> minimals.cc </Link>
+        <Box sx={{ mt: 1, typography: 'caption', color: theme.palette.secondary.main }}>
+          © AKHAHAS SRI
         </Box>
       </Container>
     </FooterRoot>

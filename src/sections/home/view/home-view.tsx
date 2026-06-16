@@ -13,7 +13,7 @@ import { Image } from 'src/components/image';
 
 const HERO_IMAGE = '/assets/akhahas-sri/hero-3.png';
 const SCENES_IMAGE = '/assets/akhahas-sri/hero-2.jpg';
-const MEMORIAL_IMAGE = '/assets/travel/memorial-lotus-collage.png';
+const MEMORIAL_IMAGE = '/assets/akhahas-sri/rip-1.jpeg';
 
 const highlights = [
   {
@@ -215,75 +215,53 @@ export function HomeView() {
         sx={{
           px: { xs: 2.5, md: 8, lg: 13 },
           py: { xs: 7, md: 11 },
-          color: theme.palette.secondary.main,
-          // bgcolor: palette.green,
-          // backgroundImage: `
-          //   radial-gradient(circle at 50% 8%, rgba(234,215,161,0.36), transparent 28%),
-          //   linear-gradient(180deg, ${palette.ink} 0, #034420 92px, #012d1a 100%)
-          // `,
+          // color: theme.palette.secondary.main,
+          backgroundImage: `
+            radial-gradient(circle at 50% 8%,  ${theme.palette.secondary.main} 0,  ${theme.palette.secondary.main} 10%),
+            linear-gradient(180deg, ${theme.palette.secondary.main} 0, #034420 92px, #012d1a 100%)
+          `,
         }}
       >
-        <Box
-          sx={{
-            mx: 'auto',
-            maxWidth: 900,
-            textAlign: 'center',
-            display: 'flex',
-          }}
-        >
+        <Box sx={{ textAlign: 'center' }}>
           <Box
+            component="img"
+            src={MEMORIAL_IMAGE}
+            alt="Lotus memorial collage"
             sx={{
+              width: '400px',
+              height: '100%',
+              display: 'block',
               mx: 'auto',
-              height: 'min(100%, 460px)',
-              position: 'relative',
-              '&::before': {
-                content: '""',
-                left: '7%',
-                right: '7%',
-                bottom: { xs: 72, md: 84 },
-                height: 18,
-                position: 'absolute',
-                borderRadius: '50%',
-                background: 'rgba(9,47,33,0.08)',
-                filter: 'blur(16px)',
-              },
+              filter: 'drop-shadow(0 28px 55px rgba(9,47,33,0.12))',
             }}
-          >
-            <Box
-              component="img"
-              src={MEMORIAL_IMAGE}
-              alt="Lotus memorial collage"
-              sx={{
-                width: 'auto',
-                height: '100%',
-                display: 'block',
-                mx: 'auto',
-                filter: 'drop-shadow(0 28px 55px rgba(9,47,33,0.12))',
-              }}
-            />
-          </Box>
-          <Stack alignContent="center" sx={{ my: 'auto' }}>
-            <Typography
-              variant="h2"
-              color="primary"
-              sx={{
-                fontStyle: 'italic',
-              }}
-            >
-              With Humble reverence, to the celestial realm.
-            </Typography>
+          />
 
-            <Typography
-              variant="h2"
-              color="primary"
-              sx={{
-                fontStyle: 'italic',
-                mt: 1,
-              }}
-            >
-              &quot;To the final haven where all journeys rest.&quot;
-            </Typography>
+          <Stack sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 4 }}>
+            <Box sx={{ width: '50%' }}>
+              <Typography
+                variant="h3"
+                color="primary"
+                sx={{
+                  fontStyle: 'italic',
+                }}
+              >
+                ปางเธอท่านผทม เสด็จชมเสวยสวรรค์ อาภาผ่องเพ็ญจันทร์ พระเธอนั้นนิทราลัย
+                เสด็จมาเป็นแก้วตา ให้ประชาได้ชื่นใจ เสด็จสู่สุราลัย ดังดวงใจจะรานรอน
+              </Typography>
+
+              <Typography
+                variant="h4"
+                color="primary"
+                sx={{
+                  fontStyle: 'italic',
+                  mt: 3,
+                }}
+              >
+                &quot;รจนาอาลัย : รัฐพล อินโพนทัน&quot;
+              </Typography>
+            </Box>
           </Stack>
+
           <Box
             sx={{
               mt: 3,
@@ -309,17 +287,7 @@ export function HomeView() {
         }}
       >
         <Box sx={{ mx: 'auto', maxWidth: 1000, textAlign: 'center' }}>
-          <Typography
-            component="h2"
-            sx={{
-              color: theme.palette.secondary.main,
-              fontSize: 20,
-              fontWeight: 800,
-              textTransform: 'uppercase',
-            }}
-          >
-            Popular Tours
-          </Typography>
+          <Typography variant="h3">ผลงาน</Typography>
           <Typography sx={{ mt: 1.4, color: 'rgba(246,237,219,0.62)', fontSize: 12 }}>
             There will be a small title here.
           </Typography>
@@ -378,7 +346,7 @@ export function HomeView() {
           py: { xs: 8, md: 12 },
           minHeight: { md: 660 },
           backgroundImage: `
-            linear-gradient(180deg, ${theme.palette.primary.main} 0%, rgba(9,47,33,0.64) 32%, ${theme.palette.secondary.main} 100%),
+            linear-gradient(180deg, ${theme.palette.primary.main} 0%, rgba(9,47,33,0.64) 32%, ${theme.palette.primary.main} 100%),
             linear-gradient(90deg, rgba(5,37,24,0.94) 0%, rgba(18,61,43,0.48) 52%, rgba(5,37,24,0.9) 100%),
             linear-gradient(0deg, rgba(217,181,109,0.1), rgba(217,181,109,0.1)),
             url(${SCENES_IMAGE})
@@ -475,7 +443,7 @@ export function HomeView() {
         direction="row"
         spacing={4}
         justifyContent="center"
-        sx={{ pb: 7, color: theme.palette.secondary.main, bgcolor: theme.palette.secondary.main }}
+        sx={{ pb: 7, color: theme.palette.secondary.main, bgcolor: theme.palette.primary.main }}
       >
         {['◎', 'f', '✈', 't'].map((item) => (
           <Typography key={item} sx={{ fontSize: 18, fontWeight: 800 }}>
