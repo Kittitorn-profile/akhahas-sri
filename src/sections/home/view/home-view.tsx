@@ -32,6 +32,9 @@ const HERO_IMAGE = [
 ].slice(0, 7);
 const SCENES_IMAGE = '/assets/akhahas-sri/hero-2.jpg';
 const MEMORIAL_IMAGE = '/assets/akhahas-sri/rip-1.jpeg';
+const KRU_IMAGE = '/assets/akhahas-sri/bg-1.jpg';
+
+const SCENES_1_IMAGE = '/assets/akhahas-sri/hero-5.jpeg';
 
 const highlights = [
   {
@@ -51,11 +54,23 @@ const highlights = [
   },
 ];
 
-const tours = [
-  { title: 'Tour 1', subtitle: 'Misty forest walks', position: '0% 0%' },
-  { title: 'Tour 2', subtitle: 'Blue mountain lakes', position: '100% 0%' },
-  { title: 'Tour 3', subtitle: 'Waterfall valleys', position: '0% 100%' },
-  { title: 'Tour 4', subtitle: 'Jungle river routes', position: '100% 100%' },
+const ROYAL_IMAGE_ITEMS = [
+  {
+    title: 'สมเด็จพระกนิษฐาธิราชเจ้า ฯ เชิญขวัญแม่โคสกเจ้า เข้าคืนนา',
+    src: '/assets/akhahas-sri/ac-1.png',
+  },
+  {
+    title: 'สมเด็จพระกนิษฐาธิราชเจ้า ฯ เชิญขวัญแม่โคสกเจ้า เข้าคืนนา',
+    src: '/assets/akhahas-sri/ac-2.png',
+  },
+  {
+    title: 'สมเด็จพระกนิษฐาธิราชเจ้า ฯ เชิญขวัญแม่โคสกเจ้า เข้าคืนนา',
+    src: '/assets/akhahas-sri/ac-3.png',
+  },
+  {
+    title: 'สมเด็จพระกนิษฐาธิราชเจ้า ฯ เชิญขวัญแม่โคสกเจ้า เข้าคืนนา',
+    src: '/assets/akhahas-sri/ac-4.png',
+  },
 ];
 
 const VIDEO_ITEMS = [
@@ -114,6 +129,9 @@ export function HomeView() {
   const theme = useTheme();
   const [videoPreviewKey, setVideoPreviewKey] = useState(0);
   const [selectedVideo, setSelectedVideo] = useState<(typeof VIDEO_ITEMS)[number] | null>(null);
+  const [selectedImage, setSelectedImage] = useState<(typeof ROYAL_IMAGE_ITEMS)[number] | null>(
+    null
+  );
   const heroCarousel = useCarousel({ loop: true, duration: 80 }, [
     Fade(),
     Autoplay({ playOnInit: true, delay: 5000 }),
@@ -131,7 +149,7 @@ export function HomeView() {
         minHeight: '100vh',
         color: theme.palette.secondary.main,
         overflow: 'hidden',
-        bgcolor: theme.palette.secondary.main,
+        bgcolor: theme.palette.primary.main,
         fontFamily: "'LINE Seed Sans TH', sans-serif",
       }}
     >
@@ -367,11 +385,14 @@ export function HomeView() {
         sx={{
           px: { xs: 2.5, md: 8, lg: 13 },
           py: { xs: 7, md: 10 },
+          minHeight: 800,
           backgroundImage: `
-            linear-gradient(0deg, ${theme.palette.primary.main} 0%, rgba(9,47,33,0.64) 32%, ${theme.palette.secondary.main} 100%),
+            linear-gradient(0deg, ${theme.palette.primary.main} 10%, rgba(9,47,33,0.64) 48%, ${theme.palette.secondary.main} 100%),
             linear-gradient(0deg, rgba(217,181,109,0.1), rgba(217,181,109,0.1)),
-            url(${SCENES_IMAGE})
+            url(${SCENES_1_IMAGE})
           `,
+          backgroundSize: 'cover',
+          backgroundPosition: '100% 20%',
         }}
       >
         <Box sx={{ mx: 'auto', maxWidth: 1000, textAlign: 'center' }}>
@@ -397,9 +418,210 @@ export function HomeView() {
               },
             }}
           >
-            {tours.map((tour, index) => (
-              <Image src={`/assets/akhahas-sri/ac-${index + 1}.png`} ratio="3/4" />
+            {ROYAL_IMAGE_ITEMS.map((image) => (
+              <Box
+                key={image.src}
+                className="royal-image-button"
+                component="button"
+                type="button"
+                aria-label={`ดูภาพ ${image.title}`}
+                onClick={() => setSelectedImage(image)}
+                sx={{
+                  p: 0,
+                  m: 0,
+                  border: 0,
+                  width: 1,
+                  display: 'block',
+                  cursor: 'pointer',
+                  overflow: 'hidden',
+                  borderRadius: 1,
+                  bgcolor: 'transparent',
+                  position: 'relative',
+                  '&::after': {
+                    inset: 0,
+                    opacity: 0,
+                    content: '""',
+                    position: 'absolute',
+                    transition: 'opacity 180ms ease',
+                    background:
+                      'linear-gradient(180deg, rgba(5,37,24,0.02) 0%, rgba(5,37,24,0.46) 100%)',
+                  },
+                  '&:hover::after, &:focus-visible::after': {
+                    opacity: 1,
+                  },
+                  '&:focus-visible': {
+                    outline: `2px solid ${theme.palette.secondary.main}`,
+                    outlineOffset: 4,
+                  },
+                  '&:hover .royal-image-preview-icon, &:focus-visible .royal-image-preview-icon': {
+                    opacity: 1,
+                    transform: 'translate(-50%, -50%) scale(1)',
+                  },
+                }}
+              >
+                <Image
+                  alt={image.title}
+                  src={image.src}
+                  ratio="3/4"
+                  sx={{
+                    width: 1,
+                    transition: 'transform 220ms ease',
+                    '.royal-image-button:hover > &, .royal-image-button:focus-visible > &': {
+                      transform: 'scale(1.04)',
+                    },
+                  }}
+                />
+                <Box
+                  className="royal-image-preview-icon"
+                  sx={{
+                    top: '50%',
+                    left: '50%',
+                    zIndex: 1,
+                    width: 52,
+                    height: 52,
+                    opacity: 0,
+                    display: 'grid',
+                    borderRadius: '50%',
+                    placeItems: 'center',
+                    position: 'absolute',
+                    color: theme.palette.secondary.main,
+                    transform: 'translate(-50%, -50%) scale(0.92)',
+                    transition: 'opacity 180ms ease, transform 180ms ease',
+                    bgcolor: 'rgba(9, 47, 33, 0.64)',
+                    border: '1px solid rgba(234,215,161,0.58)',
+                    boxShadow: '0 18px 40px rgba(0,0,0,0.34)',
+                  }}
+                >
+                  <Iconify icon="solar:eye-bold" width={24} />
+                </Box>
+              </Box>
             ))}
+          </Box>
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          px: { xs: 2.5, md: 8, lg: 13 },
+          py: { xs: 8, md: 12 },
+          minHeight: 670,
+          backgroundImage: `
+            linear-gradient(180deg, ${theme.palette.primary.main} 0%, rgba(9,47,33,0.64) 32%, ${theme.palette.primary.main} 100%),
+            linear-gradient(90deg, rgba(5,37,24,0.94) 0%, rgba(18,61,43,0.48) 52%, rgba(5,37,24,0.9) 100%),
+            linear-gradient(0deg, rgba(217,181,109,0.1), rgba(217,181,109,0.1)),
+            url(${KRU_IMAGE})
+          `,
+          backgroundSize: 'cover',
+          backgroundPosition: '100% 100%',
+        }}
+      >
+        {/* <Stack sx={{ display: 'flex', textAlign: 'center', mb: 2 }}>
+          <Typography variant="h3">ธีรวัฒน์ เจียงคำ</Typography>
+        </Stack> */}
+        <Box
+          sx={{
+            mx: 'auto',
+            gap: { xs: 6, md: 5 },
+            maxWidth: 1280,
+            display: 'grid',
+            alignItems: 'center',
+            gridTemplateColumns: { xs: '1fr', md: '0.88fr 1.12fr' },
+          }}
+        >
+          <Box
+            sx={{
+              gap: 2,
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)' },
+            }}
+          >
+            <Box
+              sx={{
+                p: 1,
+                borderRadius: 1.5,
+                bgcolor: 'rgba(234,215,161,0.1)',
+                border: '1px solid rgba(234,215,161,0.22)',
+                boxShadow: '0 24px 60px rgba(0,0,0,0.22)',
+              }}
+            >
+              <Box
+                sx={{
+                  width: 1,
+                  aspectRatio: '16 / 9',
+                  height: { xs: 200, md: 350 },
+                  overflow: 'hidden',
+                  borderRadius: 1,
+                  bgcolor: '#052518',
+                  '& .react-player__preview': {
+                    borderRadius: 1,
+                  },
+                  '& .react-player__shadow': {
+                    bgcolor: 'rgba(9, 47, 33, 0.54)',
+                    boxShadow: '0 18px 40px rgba(0,0,0,0.34)',
+                  },
+                }}
+              >
+                <ReactPlayer
+                  src="https://www.youtube.com/watch?v=76jSHW8-Sug&t=5s"
+                  light="https://img.youtube.com/vi/76jSHW8-Sug/maxresdefault.jpg"
+                  width="100%"
+                  height="100%"
+                  playIcon={<PlayButton small />}
+                  // previewAriaLabel={`ดูวิดีโอ ${video.title}`}
+                  // onClickPreview={() => setSelectedVideo(video)}
+                />
+              </Box>
+            </Box>
+          </Box>
+
+          <Box>
+            <Typography
+              component="h2"
+              sx={{
+                color: theme.palette.secondary.main,
+                maxWidth: 520,
+                fontSize: { xs: 42, sm: 58, md: 68 },
+                fontWeight: 800,
+                lineHeight: 1.2,
+                textTransform: 'uppercase',
+              }}
+            >
+              ธีรวัฒน์ เจียงคำ
+            </Typography>
+
+            <Typography
+              sx={{
+                mt: 4,
+                maxWidth: 430,
+                color: theme.palette.secondary.main,
+                lineHeight: 1.75,
+              }}
+            >
+              การออกแบบไม่ควรยึดติดกับรูปแบบเดิมจนเกินไป
+              จนไม่สัมพันธ์กับความต้องการใช้งานของคนรุ่นใหม่
+              แนวคิดที่ดีคือการปล่อยให้วัสดุมีความเป็นตัวของมันเองมากที่สุด
+              เพื่อให้สามารถปรับเปลี่ยนไปเป็นอะไรก็ได้ที่ตอบสนองการใช้งานและสภาพปัจจุบันของผู้ใช้
+              ถ้าเรายึดติดกับการทำให้สิ่งของมีลักษณะโบราณมากเกินไป มันก็จะอยู่ได้แค่ในพิพิธภัณฑ์
+              ไม่ได้ถูกนำไปใช้งานจริง เมื่อสิ่งของไม่ถูกนำไปใช้งาน มันก็ไม่สามารถอยู่ร่วมกับสังคมได้
+            </Typography>
+
+            <Typography
+              variant="h4"
+              sx={{
+                fontStyle: 'italic',
+                mt: 3,
+              }}
+            >
+              &quot;ธีรวัฒน์ เจียงคำ&quot;
+            </Typography>
+            <Typography
+              variant="caption"
+              sx={{
+                fontStyle: 'italic',
+                mt: 3,
+              }}
+            >
+              ที่มา https://soundisan.com/news/ttaste-khamriang/ และ The Isaan Record Podcast
+            </Typography>
           </Box>
         </Box>
       </Box>
@@ -529,6 +751,95 @@ export function HomeView() {
           </Box>
         </Box>
       </Box>
+
+      {/* <Box
+        sx={{
+          textAlign: 'center',
+          px: { xs: 2.5, md: 8, lg: 13 },
+          py: { xs: 8, md: 12 },
+          minHeight: 600,
+          backgroundImage: `
+            linear-gradient(180deg, ${theme.palette.primary.main} 0%, rgba(9,47,33,0.64) 32%, ${theme.palette.primary.main} 100%),
+            linear-gradient(90deg, rgba(5,37,24,0.94) 0%, rgba(18,61,43,0.48) 52%, rgba(5,37,24,0.9) 100%),
+            linear-gradient(0deg, rgba(217,181,109,0.1), rgba(217,181,109,0.1)),
+            url(${SCENES_IMAGE})
+          `,
+          backgroundSize: 'cover',
+          backgroundPosition: '100% 100%',
+        }}
+      >
+        <Typography
+          sx={{
+            mt: 2,
+            color: theme.palette.secondary.main,
+            fontSize: { xs: 24, sm: 32, md: 40 },
+            fontWeight: 800,
+            lineHeight: 0.92,
+            textTransform: 'uppercase',
+          }}
+        >
+          ผู้มีส่วนร่วม
+        </Typography>
+        <Stack
+          mt={6}
+          sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}
+          spacing={4}
+        >
+          <Image alt="Single logo" sx={{ width: 200 }} src="/assets/akhahas-sri/logo-kaitod.png" />
+        </Stack>
+      </Box> */}
+
+      <Dialog
+        fullWidth
+        open={!!selectedImage}
+        onClose={() => setSelectedImage(null)}
+        slotProps={{
+          paper: {
+            sx: {
+              overflow: 'hidden',
+              bgcolor: theme.palette.primary.main,
+              borderRadius: 1.5,
+              border: '1px solid rgba(234,215,161,0.24)',
+            },
+          },
+        }}
+      >
+        <Box
+          sx={{
+            px: 2,
+            py: 1.25,
+            gap: 1.5,
+            display: 'flex',
+            alignItems: 'center',
+            color: theme.palette.secondary.main,
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography sx={{ fontSize: 16, fontWeight: 800 }}>{selectedImage?.title}</Typography>
+
+          <IconButton onClick={() => setSelectedImage(null)} sx={{ color: 'inherit' }}>
+            <Iconify icon="mingcute:close-line" />
+          </IconButton>
+        </Box>
+
+        <DialogContent sx={{ py: 3, bgcolor: theme.palette.primary.main, width: 'auto' }}>
+          {selectedImage && (
+            <Box
+              component="img"
+              alt={selectedImage.title}
+              src={selectedImage.src}
+              sx={{
+                width: 1,
+                height: 'auto',
+                display: 'block',
+                objectFit: 'contain',
+                maxHeight: { xs: '78vh', md: '82vh' },
+                bgcolor: theme.palette.primary.main,
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
 
       <Dialog
         fullWidth
